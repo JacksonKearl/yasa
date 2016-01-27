@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "yasa.h"
 #include "hash.h"
 
@@ -16,6 +17,7 @@ int nest_count = 0;
 // right now just allocate the $arr for us. Maybe more later on
 void initalize_state() {
     script_arr = malloc(sizeof(int) * ARR_LENGTH);
+    srand(time(NULL));
 }
 
 
@@ -62,13 +64,16 @@ void interpret(char* line) {
       *var = val;
       break;
     case LBL:;
-      int mark;
-      sscanf(line, "%d", &mark);
-      if (jump == mark) {
+      int here_mark;
+      sscanf(line, "%d", &here_mark);
+      if (jump == here_mark) {
         jump = 0;
       }
       break;
-    case MOV:
+    case MOV:;
+      int goto_mark;
+      sscanf(line, "%d", &goto_mark);
+      jump = goto_mark;
       current_line = 0;
       break;
   }
@@ -142,7 +147,7 @@ void interpret(char* line) {
       *vars[2] = *vars[0] / *vars[1];
       break;
     case RAN:
-      if ( *vars[1] < 2 )
+      if ( *vars[0] < 2 )
       {
         fputs("Attempted to modulo less than 2", stderr);
         break;
@@ -150,10 +155,10 @@ void interpret(char* line) {
       *vars[1] = rand() % *vars[0];
       break;
     case EQL:
-      *vars[2] = *vars[1] == *vars[2] ? 1 : 0;
+      *vars[2] = (*vars[0] == *vars[1]) ? 1 : 0;
       break;
     case GRT:
-      *vars[2] = *vars[1] > *vars[2] ? 1 : 0;
+      *vars[2] = *vars[0] > *vars[1] ? 1 : 0;
       break;
     case IFF:
       if (*vars[0]) { break; };
@@ -182,6 +187,8 @@ void interpret(char* line) {
 int main(int argc, char const *argv[]) {
   FILE *fp;
   int num_lines;
+
+  initalize_state();
 
   if (argc == 1) {
     // REPL mode
