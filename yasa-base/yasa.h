@@ -8,6 +8,11 @@
 #define ARR_LENGTH 1024
 #endif
 
+// How big of a command set we're giving program in REPL mode.
+#ifndef REPL_LENGTH
+#define REPL_LENGTH 128
+#endif
+
 // commands
 #define SET 190520
 #define CPY 31625

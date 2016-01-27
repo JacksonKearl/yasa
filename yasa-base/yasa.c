@@ -9,7 +9,9 @@ int script_vars[26] = {0};
 int* script_arr;
 int stack_pos = 0;
 char** script;
-int current_line;
+int current_line = 0;
+int jump = 0;
+int nest_count = 0;
 
 // right now just allocate the $arr for us. Maybe more later on
 void initalize_state() {
@@ -41,8 +43,17 @@ void interpret(char* line) {
   strncpy(cmd, line, 3);
   line += 4;
 
+  int cmd_hash = hash(cmd);
+
+  if (jump && cmd_hash != LBL &&
+              cmd_hash != EIF &&
+              cmd_hash != ELS &&
+              cmd_hash != END) {
+    return;
+  }
+
   // functions that accept non-$var input
-  switch (hash(cmd)) {
+  switch (cmd_hash) {
     case SET:;
       int val;
       char arg;
@@ -50,11 +61,15 @@ void interpret(char* line) {
       int* var = script_vars + (int)(arg - 'a');
       *var = val;
       break;
-    case LBL:
-      /* code.... */
+    case LBL:;
+      int mark;
+      sscanf(line, "%d", &mark);
+      if (jump == mark) {
+        jump = 0;
+      }
       break;
     case MOV:
-      /* code.... */
+      current_line = 0;
       break;
   }
 
@@ -141,50 +156,68 @@ void interpret(char* line) {
       *vars[2] = *vars[1] > *vars[2] ? 1 : 0;
       break;
     case IFF:
-      /* code.... */
+      if (*vars[0]) { break; };
+      jump = -1;
+      nest_count++;
       break;
     case EIF:
-      /* code.... */
+      if (!jump) { jump = -1; break;}
+      if (*vars[0]) { break; };
+      jump = -1;
       break;
     case ELS:
-      /* code.... */
+      if (jump == -1) { jump = 0; break; }
       break;
     case END:
-      /* code.... */
+      jump = 0;
+      if (nest_count == 0) {
+        exit(0);
+      }
+      nest_count--;
       break;
-
   }
 }
 
 
 int main(int argc, char const *argv[]) {
-
-  if (argc < 1) {
-    puts("No file to interpret. Currently no support for interpreting from stdin :/");
-    return 1;
-  }
-
   FILE *fp;
-  fp = fopen(argv[1], "r");
-  if (!fp) {
-    puts("No file to interpret. File could not be opened :/");
-    return 1;
+  int num_lines;
+
+  if (argc == 1) {
+    // REPL mode
+    fp = stdin;
+    num_lines = REPL_LENGTH;
+  } else {
+    // normal mode
+    fp = fopen(argv[1], "r");
+    if (!fp) {
+      printf("File %d could not be opened :/\n", argc);
+      return 1;
+    }
+
+    num_lines = count_lines(fp);
   }
 
-  int num_lines = count_lines(fp);
+  script = (char**)calloc(num_lines, sizeof(char*));
 
-  script = (char**)malloc(sizeof(char*) * num_lines);
+  while (1) {
+    if (argc == 1 && current_line == num_lines) {
+      num_lines *= 2;
+      script = (char**)realloc(script, num_lines);
+      if (script == NULL) {
+        fputs("Out of memory :(", stderr); return 1;
+      }
+      for (int i = num_lines/2; i < num_lines; i++) {
+        script[i] = NULL;
+      }
+    }
 
-  for (int line_num = 0 ; line_num < num_lines ; line_num++) {
-    script[line_num] = (char*)malloc(sizeof(char) * LINE_LENGTH);
-    fgets(script[line_num], LINE_LENGTH, fp);
-  }
-
-  // When we get arount to implementing end, it will close program if
-  //   not an if, so that will replace `current_line < num_lines`,
-  //   and allow for this go work on a live input REPL sorta thing
-  for (current_line = 0 ; current_line < num_lines ; current_line++ ) {
+    if (script[current_line] == NULL) {
+      script[current_line] = (char*)malloc(sizeof(char) * LINE_LENGTH);
+      fgets(script[current_line], LINE_LENGTH, fp);
+    }
     interpret(script[current_line]);
+    current_line++;
   }
 
   return 0;
