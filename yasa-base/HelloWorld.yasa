@@ -1,0 +1,27 @@
+set 72 $a
+dis $a
+set 101 $a
+dis $a
+set 108 $a
+dis $a
+cpy $a $b
+dis $b
+set 111 $a
+dis $a
+set 32 $a
+dis $a
+set 119 $a
+dis $a
+set 110 $a
+inc $a
+dis $a
+set 115 $a
+dec $a
+dis $a
+set 108 $a
+dis $a
+set 100 $a
+dis $a
+set 10 $a
+dis $a
+end
