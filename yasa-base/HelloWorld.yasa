@@ -1,7 +1,7 @@
 # This is a comment.
-cpy 71 $a        So is this.
-inc $a           Running this script tests all but the if and in commands
-cpy $a $b
+cpy 71 $        So is this.
+inc $           Running this script tests all but the if and in commands
+cpy $ $b
 dis $b           'H' = cpy, inc, cpy
 cpy 6 $a
 dec $a

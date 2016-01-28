@@ -14,7 +14,7 @@
 #include "io.h"
 
 // Probably not good practice to define these globally, but eh.
-int script_vars[26] = {0};
+int script_vars[27] = {0};
 int* script_arr;
 int stack_pos = 0;
 char** script;
@@ -65,7 +65,9 @@ void interpret(char* line) {
 
   for (int  i = 0; i < argc; i++) {
     if (args[i][0] == '$') {
-      vars[i] = script_vars + args[i][1] - 'a';
+      // if just $, store to temp
+      if (!args[i][1]) { vars[i] = &script_vars[26]; }
+      else { vars[i] = script_vars + args[i][1] - 'a'; }
     } else {
       literals[i] = atoi(args[i]);
       vars[i] = &literals[i];
