@@ -1,3 +1,10 @@
+//
+// hash.h
+//
+// interface for the hash function, which is
+//    used for mapping commands to functions
+//
+
 #include "hash.h"
 
 // Basically just convert charachters to their ordinals and append

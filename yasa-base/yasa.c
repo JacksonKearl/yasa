@@ -1,9 +1,17 @@
+//
+// yasa.c
+//
+// The main chunk of the program. Provides for interpreting lines and
+//    altering the state of the VM
+//
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include "yasa.h"
 #include "hash.h"
+#include "io.h"
 
 // Probably not good practice to define these globally, but eh.
 int script_vars[26] = {0};
@@ -14,29 +22,6 @@ int current_line = 0;
 int jump = 0;
 int nest_count = 0;
 
-// right now just allocate the $arr for us. Maybe more later on
-void initalize_state() {
-    script_arr = malloc(sizeof(int) * ARR_LENGTH);
-    srand(time(NULL));
-}
-
-
-// Currently needed beauce I'm not really feeling down to check for eof.
-// Expect removal...
-int count_lines(FILE * fp) {
-  int lines = 0;
-
-  while(!feof(fp)) {
-    char ch = fgetc(fp);
-
-    if(ch == '\n') {
-      lines++;
-    }
-  }
-
-  rewind(fp);
-  return lines;
-}
 
 // the meat of it. pretty self explanitory.
 void interpret(char* line) {
@@ -188,7 +173,8 @@ int main(int argc, char const *argv[]) {
   FILE *fp;
   int num_lines;
 
-  initalize_state();
+  script_arr = malloc(sizeof(int) * ARR_LENGTH);
+  srand(time(NULL));
 
   if (argc == 1) {
     // REPL mode
@@ -208,6 +194,10 @@ int main(int argc, char const *argv[]) {
   script = (char**)calloc(num_lines, sizeof(char*));
 
   while (1) {
+
+    // If we're out of preallocated memory for lines, double our memory
+    //    Only applies in REPL mode, as memory is allocated beforehad in
+    //    file mode
     if (argc == 1 && current_line == num_lines) {
       num_lines *= 2;
       script = (char**)realloc(script, num_lines);
@@ -219,10 +209,11 @@ int main(int argc, char const *argv[]) {
       }
     }
 
+    // check for null so that we don't write over old lines in jump commands
     if (script[current_line] == NULL) {
-      script[current_line] = (char*)malloc(sizeof(char) * LINE_LENGTH);
-      fgets(script[current_line], LINE_LENGTH, fp);
+      script[current_line] = readLine(fp);
     }
+
     interpret(script[current_line]);
     current_line++;
   }

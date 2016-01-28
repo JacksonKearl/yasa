@@ -1,7 +1,9 @@
-// How much space we allocate per line of code.
-#ifndef LINE_LENGTH
-#define LINE_LENGTH 128
-#endif
+//
+// yasa.h
+//
+// Defines main program constants and provides definitions for command hashes.
+//
+
 
 // How big of an array we're giving the program.
 #ifndef ARR_LENGTH
