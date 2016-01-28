@@ -75,13 +75,19 @@ void interpret(char* line) {
     case SHO:
       printf("%d", *vars[0]);
       if (REPL) {
+        #ifdef REPL_NO_NEWL
+        #else
         puts("");
+        #endif
       }
       break;
     case DIS:
       printf("%c", (char)*vars[0]);
       if (REPL) {
+        #ifdef REPL_NO_NEWL
+        #else
         puts("");
+        #endif
       }
       break;
     case INC:
