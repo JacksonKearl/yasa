@@ -1,31 +1,31 @@
-set 71 $a        This is a comment.
-inc $a           Running this script tests all but the control flow commands
+# This is a comment.
+cpy 71 $a        So is this.
+inc $a           Running this script tests all but the if and in commands
 cpy $a $b
-dis $b           'H' = set, inc, cpy
-set 6 $a
+dis $b           'H' = cpy, inc, cpy
+cpy 6 $a
 dec $a
-set 1 $b
+cpy 1 $b
 add $a $b $a
-set 2 $b
+cpy 2 $b
 div $a $b $a
 mul $a $a $a
-set 6 $b
-sub $a $b $a
-set 98 $b
+sub $a 6 $a
+cpy 98 $b
 add $a $b $a
 dis $a           'He' = sho, dec, add, sub, mul, div
-set 666 $a
+cpy 666 $a
 pus $a
-set 111 $a
+cpy 111 $a
 pus $a
-set 108 $a
+cpy 108 $a
 pus $a
-set 108 $a
+cpy 108 $a
 pus $a
-set 32 $a
-set 0 $b
+cpy 32 $a
+cpy 0 $b
 put $a $b
-set 1 $b
+cpy 1 $b
 get $c $b
 pop $a
 dis $a
@@ -37,8 +37,8 @@ pop $a
 dis $a           'Hello ' = pus, pop, put, get
 mov 2
 lbl 3
-set 1 $a
-set 2 $b
+cpy 1 $a
+cpy 2 $b
 grt $a $b $c
 sho $c
 grt $b $a $c
@@ -47,10 +47,10 @@ eql $b $a $c
 sho $c
 eql $a $a $c
 sho $c
-set 1 $b
+cpy 1 $b
 eql $a $b $c
 sho $c           'Hello 01011' = grt, eql
-set 10 $b
+cpy 10 $b
 ran $b $a
 sho $a
 ran $b $a
@@ -62,31 +62,31 @@ sho $a
 mov 4
 lbl 2
 mov 1
-set 119 $a
+cpy 119 $a
 dis $a
-set 111 $a
+cpy 111 $a
 dis $a
-set 114 $a
+cpy 114 $a
 dis $a
-set 108 $a
+cpy 108 $a
 dis $a
-set 100 $a
+cpy 100 $a
 dis $a
 lbl 1
-set 119 $a
+cpy 119 $a
 dis $a
-set 111 $a
+cpy 111 $a
 dis $a
-set 114 $a
+cpy 114 $a
 dis $a
-set 108 $a
+cpy 108 $a
 dis $a
-set 100 $a
+cpy 100 $a
 dis $a
-set 10 $a
+cpy 10 $a
 dis $a
 mov 3
 lbl 4
-set 10 $a
+cpy 10 $a
 dis $a
 end           Hello world\n01011rrrr = lbl, mov, ran (r = random 0 to 9)

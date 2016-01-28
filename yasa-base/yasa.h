@@ -16,7 +16,6 @@
 #endif
 
 // commands
-#define SET 190520
 #define CPY 31625
 #define SHO 190815
 #define DIS 40919

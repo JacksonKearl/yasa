@@ -41,13 +41,6 @@ void interpret(char* line) {
 
   // functions that accept non-$var input
   switch (cmd_hash) {
-    case SET:;
-      int val;
-      char arg;
-      sscanf(line, "%d %*c%c", &val, &arg);
-      int* var = script_vars + (int)(arg - 'a');
-      *var = val;
-      break;
     case LBL:;
       int here_mark;
       sscanf(line, "%d", &here_mark);
@@ -64,13 +57,23 @@ void interpret(char* line) {
   }
 
   // the max three arguments passed to each command
-  char args[3] = {0};
-  int argc = sscanf(line, "%*c%c %*c%c %*c%c", &args[0], &args[1], &args[2]);
+  char args[3][16];
+  int argc = sscanf(line, "%s %s %s", args[0], args[1], args[2]);
+
+  int* vars[3] = {0};
+  int literals[3] = {0};
+
+  for (int  i = 0; i < argc; i++) {
+    if (args[i][0] == '$') {
+      vars[i] = script_vars + args[i][1] - 'a';
+    } else {
+      literals[i] = atoi(args[i]);
+      vars[i] = &literals[i];
+    }
+  }
 
   // the local memory locations where argument variables are stored
-  int* vars[3] = {0};
   for (int i = 0; i < argc ; i ++) {
-    vars[i] = script_vars + args[i] - 'a';
   }
 
   switch (hash(cmd)) {
