@@ -33,11 +33,42 @@ All variables and literals are integers, which may be converted to/from ASCII ch
 In addition to the 27 `$var`s, the runtime also has access to an array of integers, initailized to `0`, that may be accesed at random. 
  
 ####Commands:
-
+#####Operations:
 |Command|Name|Arguments|Description|
-+-------+----+---------+-----------+
-| | | | |
-| | | | |
-| | | | |
-| | | | |
+|-------|----|---------|-----------|
+|Copy|cpy |$a $b | assigns $b the value of $a|
+| Show|sho |$a |outputs $a as an integer|
+|Display |dis |$a |outputs $a as an ASCII char |
+| Increment|inc |$a | assigns value $a + 1 to $a|
+|Decrement| dec| $a | assigns vlaue $a -1 to $a|
+|Integer In|iin|$a| assigns $a integer read from stdin|
+|Charachter In|cin|$a| assigns $a char read from stdin|
+|Push|pus|$a| pushes $a onto global array|
+|Pop|pop|$a| assigns $a value popped from global array|
+|Put|put|$a $i|assigns $a to global array index $i|
+|Get|get|$a $i|assigns value at global array index $i to $a|
+|Add|add|$a $b $r| assigns $r the value $a + $b|
+|Subtract|sub|$a $b $r| assigns $r the value $a - $b|
+|Multiply|mul|$a $b $r| assigns $r the value $a * $b|
+|Divide|div|$a $b $r| assigns $r the value $a / $b|
+|Random|ran|$n $a| assigns $a random value between 0 and $n|
+
+#####Control Flow:
+|Command|Name|Arguments|Description|
+|-------|----|---------|-----------|
+|Label|lbl|$a| creates a mark for future/past mov's|
+|Move|mov|$a| go to label $a, searching from beginning onward|
+|If|iff|$a|continue if $a is not 0, else jump to next elif or end|
+|Else If|eif|$a|continue if $a is not 0, else jump to next elif or end|
+|Else|els|none|continue so long as previous `iff`'s evaluated false|
+|End|end|none|end iff block or program|
+
+#####Conditionals:
+|Command|Name|Arguments|Description|
+|-------|----|---------|-----------|
+|Equal|eql|$a $b $r| gives $r 1 if $a = $b, else $0|
+|Greater|grt|$a $b $r| gives $r 1 if $a > $b, else $0|
+
+As a general rule, the modified variable in a given command will be the last in the argument list. 
+
 
