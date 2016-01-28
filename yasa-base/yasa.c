@@ -14,6 +14,7 @@
 #include "io.h"
 
 // Probably not good practice to define these globally, but eh.
+// vars $a-$z, and $ (temp)
 int script_vars[27] = {0};
 int* script_arr;
 int stack_pos = 0;
