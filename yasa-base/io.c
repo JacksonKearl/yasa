@@ -23,7 +23,7 @@ int count_lines(FILE * fp) {
   }
 
   rewind(fp);
-  return lines;
+  return lines+1;
 }
 
 

@@ -22,6 +22,7 @@ char** script;
 int current_line = 0;
 int jump = 0;
 int nest_count = 0;
+int REPL = 0;
 
 
 // the meat of it. pretty self explanitory.
@@ -42,23 +43,11 @@ void interpret(char* line) {
 
   // functions that accept non-$var input
   switch (cmd_hash) {
-    case LBL:;
-      int here_mark;
-      sscanf(line, "%d", &here_mark);
-      if (jump == here_mark) {
-        jump = 0;
-      }
-      break;
-    case MOV:;
-      int goto_mark;
-      sscanf(line, "%d", &goto_mark);
-      jump = goto_mark;
-      current_line = 0;
-      break;
+
   }
 
   // the max three arguments passed to each command
-  char args[3][16];
+  char args[3][16] = {0};
   int argc = sscanf(line, "%s %s %s", args[0], args[1], args[2]);
 
   int* vars[3] = {0};
@@ -85,9 +74,15 @@ void interpret(char* line) {
       break;
     case SHO:
       printf("%d", *vars[0]);
+      if (REPL) {
+        puts("");
+      }
       break;
     case DIS:
-      printf("%c", *vars[0]);
+      printf("%c", (char)*vars[0]);
+      if (REPL) {
+        puts("");
+      }
       break;
     case INC:
       *vars[0] = *vars[0] + 1;
@@ -96,13 +91,15 @@ void interpret(char* line) {
       *vars[0] = *vars[0] - 1;
       break;
     case IIN:;
-      int in;
-      scanf("%d", &in);
-      *vars[0] = in;
+      char int_str[16];
+      fgets(int_str, 16, stdin);
+      *vars[0] = atoi(int_str);
       break;
     case CIN:;
-      *vars[0] = (int)getc(stdin);
-      break;
+      char char_str[4];
+      fgets(char_str, 4, stdin);
+      *vars[0] = char_str[0];
+    break;
     case PUS:
       script_arr[stack_pos++] = *vars[0];
       break;
@@ -171,6 +168,15 @@ void interpret(char* line) {
       }
       nest_count--;
       break;
+    case LBL:;
+      if (jump == *vars[0]) {
+        jump = 0;
+      }
+      break;
+    case MOV:;
+      jump = *vars[0];
+      current_line = -1;
+      break;
   }
 }
 
@@ -184,6 +190,7 @@ int main(int argc, char const *argv[]) {
 
   if (argc == 1) {
     // REPL mode
+    REPL = 1;
     fp = stdin;
     num_lines = REPL_LENGTH;
   } else {
