@@ -37,6 +37,10 @@ int nest_count = 0;
 int REPL = 0;
 
 
+// 1 when we're looking for a lbl, means dont do shit.
+int jump_seeking = 0;
+
+
 // the meat of it. pretty self explanitory.
 void interpret(char* line) {
   //fputs(line, stdout);
@@ -46,6 +50,8 @@ void interpret(char* line) {
 
   int cmd_hash = hash(cmd);
 
+  if (jump_seeking && cmd_hash != LBL
+                   && cmd_hash != END) { return; }
 
   // Jump value 0 means execute normally
   // Jump value -1 means jump, but continue to check eif's
@@ -58,7 +64,6 @@ void interpret(char* line) {
   if (cmd_hash == END) { nest_count--;}
 
   if (jump && cmd_hash != IFF &&
-              cmd_hash != LBL &&
               cmd_hash != EIF &&
               cmd_hash != ELS &&
               cmd_hash != END) {
@@ -203,12 +208,12 @@ void interpret(char* line) {
       //printf("retreived jump val of %d from stack pos %d\n", jump, nest_count-1);
       break;
     case LBL:;
-      if (jump == *vars[0]) {
-        jump = 0;
+      if (jump_seeking == *vars[0]) {
+        jump_seeking = 0;
       }
       break;
     case MOV:;
-      jump = *vars[0];
+      jump_seeking = *vars[0];
       current_line = -1;
       break;
   }
