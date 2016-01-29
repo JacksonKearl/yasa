@@ -27,12 +27,13 @@ int current_line = 0;
 // Jump value -1 means jump, but continue to check eif's
 // Jump value -2 means go straight to end
 int jump = 0;
+int jump_stack[64] = {0};
 
 // How deep into iff's we are. Used in dealing with end's
 int nest_count = 0;
 
 // If we're reading from file or stdin. 0 = file, 1 = console,
-//      2 = -r enabled  (no autonewline, for redirection/piping)
+//      2 = -r enabled  (no autonewline/prompt, use for redirection/piping)
 int REPL = 0;
 
 
@@ -53,7 +54,11 @@ void interpret(char* line) {
     return;
   }
 
-  if (jump && cmd_hash != LBL &&
+  if (cmd_hash == IFF) { nest_count++;}
+  if (cmd_hash == END) { nest_count--;}
+
+  if (jump && cmd_hash != IFF &&
+              cmd_hash != LBL &&
               cmd_hash != EIF &&
               cmd_hash != ELS &&
               cmd_hash != END) {
@@ -103,11 +108,13 @@ void interpret(char* line) {
       break;
     case IIN:;
       char int_str[16];
+      if (REPL == 1) { fputs(": ", stdout); }
       fgets(int_str, 16, stdin);
       *vars[0] = atoi(int_str);
       break;
     case CIN:;
       char char_str[4];
+      if (REPL == 1) { fputs(": ", stdout); }
       fgets(char_str, 4, stdin);
       *vars[0] = char_str[0];
     break;
@@ -171,9 +178,13 @@ void interpret(char* line) {
       // Jump value 0 means execute normally
       // Jump value -1 means jump, but continue to check eif's
       // Jump value -2 means go straight to end
-      nest_count++;
-      if (*vars[0]) { jump = 0; break; }
-      else { jump = -1; }
+      if (jump == -1) { jump = -2;}
+      if (jump == 0) {
+        if (*vars[0]) { jump = 0; }
+        else { jump = -1; }
+      }
+      jump_stack[nest_count-1] = jump;
+      printf("stored jump val of %d to stack pos %d\n", jump, nest_count-1);
       break;
     case EIF:
       if (jump == 0 ) {jump = -2; break;}
@@ -185,11 +196,11 @@ void interpret(char* line) {
       else { jump = -2; }
       break;
     case END:
-      jump = 0;
-      if (nest_count == 0) {
+      if (nest_count < 0) {
         exit(0);
       }
-      nest_count--;
+      jump = nest_count > 0 ? jump_stack[nest_count-1] : 0;
+      printf("retreived jump val of %d from stack pos %d\n", jump, nest_count-1);
       break;
     case LBL:;
       if (jump == *vars[0]) {
@@ -248,6 +259,16 @@ int main(int argc, char const *argv[]) {
 
     // check for null so that we don't write over old lines in jump commands
     if (script[current_line] == NULL) {
+      if (REPL == 1) {
+        if (nest_count) {
+          fputs(".. ", stdout);
+        } else {
+          fputs(">> ", stdout);
+        }
+        for (int i = 0; i < nest_count; i++) {
+          fputs("  ", stdout);
+        }
+      }
       script[current_line] = readLine(fp);
     }
 

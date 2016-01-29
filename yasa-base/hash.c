@@ -6,10 +6,15 @@
 //
 
 #include "hash.h"
+#include <string.h>
 
 // Basically just convert charachters to their ordinals and append
 // i.e. hash(aaa) = 10101, hash(zzz) = 262626
 int hash(char *str) {
+  // Becuase I'm sick and tired of this typo.
+  if (strcmp(str, "iif") == 0) {
+    return hash("iff");
+  }
   int hash = 0;
   char c;
   while ((c = *str++)) {
