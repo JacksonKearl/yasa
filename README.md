@@ -35,6 +35,8 @@ In addition to the 27 `$var`s, the runtime also has access to an array of intege
 ####Commands:
 All commands are broken down into these 4 categories. The included yasa.cson file provides syntax highlighting as documented.
 
+As a general rule, the modified variable in a given command will be the last in the argument list.
+
 #####State Change (purple):
 |Command|Name|Arguments|Description|
 |-------|----|---------|-----------|
@@ -77,6 +79,5 @@ All commands are broken down into these 4 categories. The included yasa.cson fil
 |Show|`sho` |$a |outputs $a as an integer|
 |Display |`dis` |$a |outputs $a as an ASCII char |
 
-As a general rule, the modified variable in a given command will be the last in the argument list.
 
 
