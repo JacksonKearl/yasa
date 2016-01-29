@@ -53,6 +53,6 @@ yasa has full testing coverage, and tests can be run easily via the `$ make test
   ```
   * Sample Output:
   ```
-  65A
-  66B
+  A
+  66
   ```
