@@ -184,7 +184,7 @@ void interpret(char* line) {
         else { jump = -1; }
       }
       jump_stack[nest_count-1] = jump;
-      printf("stored jump val of %d to stack pos %d\n", jump, nest_count-1);
+      //printf("stored jump val of %d to stack pos %d\n", jump, nest_count-1);
       break;
     case EIF:
       if (jump == 0 ) {jump = -2; break;}
@@ -200,7 +200,7 @@ void interpret(char* line) {
         exit(0);
       }
       jump = nest_count > 0 ? jump_stack[nest_count-1] : 0;
-      printf("retreived jump val of %d from stack pos %d\n", jump, nest_count-1);
+      //printf("retreived jump val of %d from stack pos %d\n", jump, nest_count-1);
       break;
     case LBL:;
       if (jump == *vars[0]) {
