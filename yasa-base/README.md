@@ -20,7 +20,7 @@ The `-r` tag is used to tell yasa that it is being used in a [r]edirection (or p
 
 The `input_file` argument can be used to tell yasa to simply interpret a file, as opposed to `stdin` input. This functianly of course can be replicaed via `$ yasa < input_file`, however yasa may perform better when given a file in argument form, as it can allocate memory before hand. Additianlly, passing files as arguments allows one to provide yasa runtime input through the command line.
 
-####Tests
+####Tests:
 yasa has full testing coverage, and tests can be run easily via the `$ make test` command.
 
 #####Test files:
