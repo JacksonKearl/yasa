@@ -46,3 +46,13 @@ yasa has full testing coverage, and tests can be run easily via the `$ make test
   PPPPPPPP
   ```
 * Additianlly, IO-Test.yasa functions as a sort of echo, to test IO. It is not included in `make test`.
+  * Sample Input:
+  ```
+  65
+  B
+  ```
+  * Sample Output:
+  ```
+  65A
+  66B
+  ```
