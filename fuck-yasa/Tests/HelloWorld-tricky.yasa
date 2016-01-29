@@ -1,0 +1,488 @@
+cpy 0 $p   # Initialize data pointer
+#
+inc $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+lbl -10
+get $ $p
+eql $ 0 $
+mov 10 $
+#
+get $ $p
+dec $
+put $ $p
+#
+dec $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+inc $p
+#
+mov -10
+lbl 10
+#
+dec $p
+#
+get $ $p
+dis $
+#
+inc $p
+#
+inc $p
+#
+get $ $p
+inc $
+put $ $p
+#
+inc $p
+#
+get $ $p
+dec $
+put $ $p
+#
+lbl -11
+get $ $p
+eql $ 0 $
+mov 11 $
+#
+get $ $p
+inc $
+put $ $p
+#
+mov -11
+lbl 11
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+inc $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+inc $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+lbl -12
+get $ $p
+eql $ 0 $
+mov 12 $
+#
+inc $p
+#
+lbl -13
+get $ $p
+eql $ 0 $
+mov 13 $
+#
+get $ $p
+dec $
+put $ $p
+#
+inc $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+dec $p
+#
+dec $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+inc $p
+#
+mov -13
+lbl 13
+#
+dec $p
+#
+dec $p
+#
+mov -12
+lbl 12
+#
+inc $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dis $
+#
+inc $p
+#
+get $ $p
+dec $
+put $ $p
+#
+inc $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+dis $
+#
+get $ $p
+dis $
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+dis $
+#
+inc $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dis $
+#
+dec $p
+#
+dec $p
+#
+get $ $p
+inc $
+put $ $p
+#
+lbl -14
+get $ $p
+eql $ 0 $
+mov 14 $
+#
+inc $p
+#
+lbl -15
+get $ $p
+eql $ 0 $
+mov 15 $
+#
+get $ $p
+inc $
+put $ $p
+#
+inc $p
+#
+get $ $p
+inc $
+put $ $p
+#
+mov -15
+lbl 15
+#
+inc $p
+#
+inc $p
+#
+mov -14
+lbl 14
+#
+dec $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dis $
+#
+inc $p
+#
+inc $p
+#
+get $ $p
+dis $
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+dis $
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dis $
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dec $
+put $ $p
+#
+get $ $p
+dis $
+#
+inc $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+dis $
+#
+inc $p
+#
+get $ $p
+inc $
+put $ $p
+#
+get $ $p
+dis $
+#
+end
