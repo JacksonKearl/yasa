@@ -1,5 +1,5 @@
 #yasa
-###The interpreter
+###The Central Interpreter
 
 This is the directory for the yasa interpreter.
 
