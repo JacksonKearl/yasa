@@ -51,6 +51,7 @@ cpy 1 $b
 eql $a $b $c
 sho $c           # 'Hello 01011' = grt, eql
 cpy 10 $b
+dis $b
 ran $b $a
 sho $a
 ran $b $a
@@ -59,6 +60,8 @@ ran $b $a
 sho $a
 ran $b $a
 sho $a
+mod 180 100 $a
+dis $a
 mov 4
 lbl 2
 mov 1
@@ -89,4 +92,4 @@ mov 3
 lbl 4
 cpy 10 $a
 dis $a
-end           # Hello world\n01011rrrr = lbl, mov, ran (r = random 0 to 9)
+end           # Hello world\n01011\nrrrrP = lbl, mov, ran (r = random 0 to 9)

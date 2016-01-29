@@ -30,30 +30,36 @@ end
 
 All variables and literals are integers, which may be converted to/from ASCII characters for IO purposes.
 
-In addition to the 27 `$var`s, the runtime also has access to an array of integers, initailized to `0`, that may be accesed at random. 
- 
+In addition to the 27 `$var`s, the runtime also has access to an array of integers, initailized to `0`, that may be accesed at random.
+
 ####Commands:
-#####Operations:
+All commands are broken down into these 4 categories. The included yasa.cson file provides syntax hilighting as documented.
+
+#####State Change (purple):
 |Command|Name|Arguments|Description|
 |-------|----|---------|-----------|
 |Copy|`cpy` |$a $b | assigns $b the value of $a|
-| Show|`sho` |$a |outputs $a as an integer|
-|Display |`dis` |$a |outputs $a as an ASCII char |
-| Increment|`inc` |$a | assigns value $a + 1 to $a|
-|Decrement| `dec`| $a | assigns vlaue $a -1 to $a|
-|Integer In|`iin`|$a| assigns $a integer read from stdin|
-|Charachter In|`cin`|$a| assigns $a char read from stdin|
 |Push|`pus`|$a| pushes $a onto global array|
 |Pop|`pop`|$a| assigns $a value popped from global array|
 |Put|`put`|$a $i|assigns $a to global array index $i|
 |Get|`get`|$a $i|assigns value at global array index $i to $a|
 |Add|`add`|$a $b $r| assigns $r the value `$a + $b`|
+
+#####Math (blue):
+|Command|Name|Arguments|Description|
+|-------|----|---------|-----------|
+|Increment|`inc` |$a | assigns value $a + 1 to $a|
+|Decrement|`dec`| $a | assigns vlaue $a -1 to $a|
+|Add|`add`|$a $b $r| assigns $r the value `$a + $b`|
 |Subtract|`sub`|$a $b $r| assigns $r the value `$a - $b`|
 |Multiply|`mul`|$a $b $r| assigns $r the value `$a * $b`|
 |Divide|`div`|$a $b $r| assigns $r the value `$a / $b`|
+|Modulo|`mod`|$a $b $r| assigns $r the value `$a % $b`|
 |Random|`ran`|$n $a| assigns $a random value between 0 and $n|
+|Equal|`eql`|$a $b $r| gives $r 1 if `$a = $b`, else $0|
+|Greater|`grt`|$a $b $r| gives $r 1 if `$a > $b`, else $0|
 
-#####Control Flow:
+#####Control Flow (teal):
 |Command|Name|Arguments|Description|
 |-------|----|---------|-----------|
 |Label|`lbl`|$a| creates a mark for future/past mov's. *must be positive*|
@@ -63,12 +69,14 @@ In addition to the 27 `$var`s, the runtime also has access to an array of intege
 |Else|`els`|none|continue so long as previous `iff`'s evaluated false|
 |End|`end`|none|end iff block or program|
 
-#####Conditionals:
+#####Input/Output (green):
 |Command|Name|Arguments|Description|
 |-------|----|---------|-----------|
-|Equal|`eql`|$a $b $r| gives $r 1 if `$a = $b`, else $0|
-|Greater|`grt`|$a $b $r| gives $r 1 if `$a > $b`, else $0|
+|Integer In|`iin`|$a| assigns $a integer read from stdin|
+|Charachter In|`cin`|$a| assigns $a char read from stdin|
+|Show|`sho` |$a |outputs $a as an integer|
+|Display |`dis` |$a |outputs $a as an ASCII char |
 
-As a general rule, the modified variable in a given command will be the last in the argument list. 
+As a general rule, the modified variable in a given command will be the last in the argument list.
 
 

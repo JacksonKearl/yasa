@@ -1,0 +1,42 @@
+'fileTypes': [
+  'yasa'
+]
+'scopeName': 'source.yasa'
+'name': 'yasa'
+'patterns': [
+  {
+    'comment':'control_flow'
+    'match':'^(lbl|mov|iff|eif|els|end)'
+    'name':'function.support.yasa'
+  }
+  {
+    'comment':'math'
+    'match':'^(eql|grt|add|sub|mul|div|ran|inc|dec|mod)'
+    'name':'entity.name.function.target.yasa'
+  }
+  {
+    'comment':'state_change'
+    'match':'^(cpy|pus|pop|put|get)'
+    'name':'keyword.control.directive.include.yasa'
+  }
+  {
+    'comment':'io'
+    'match':'^(sho|dis|iin|cin)'
+    'name':'string.quoted.yasa'
+  }
+  {
+    'comment':'variable'
+    'match':'[$][a-z]?'
+    'name':'variable.other.normal.yasa'
+  }
+  {
+    'comment':'literal'
+    'match':'[ 0-9]+'
+    'name':'constant.numeric.yasa'
+  }
+  {
+    'comment':'comment'
+    'match': '#.*'
+    'name':'comment.line.number-sign.yasa'
+  }
+]

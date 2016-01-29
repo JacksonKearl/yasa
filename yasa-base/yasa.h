@@ -32,6 +32,7 @@
 #define MUL 132112
 #define DIV 40922
 #define RAN 180114
+#define MOD 131504
 
 // control flow
 #define LBL 120212

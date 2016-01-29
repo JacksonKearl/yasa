@@ -1,0 +1,19 @@
+# Init vars
+cpy 80 $y
+cpy 78 $n
+cpy 0 $f
+cpy 1 $t
+#Test that on true, iff executes iff code and passes over els code correctly
+iff $t
+dis $y  # Snould display Y
+els
+dis $n  # Should NOT display N
+end
+#Test that on false, iff passes over iff code and executes els correctly
+iff $f
+dis $n  # Should NOT display n
+els
+dis $y  # Snould display Y
+end
+dis 10
+end

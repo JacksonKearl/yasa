@@ -1,0 +1,89 @@
+# Init vars
+cpy 80 $y
+cpy 78 $n
+cpy 0 $f
+cpy 1 $t
+# in general: should only output 'Y' ($y)'s
+#
+# if true, eif true, eif true, els 111
+iff $t
+dis $y
+eif $t
+dis $n
+eif $t
+dis $n
+els
+dis $n
+end
+# if true, eif true, eif false, els 110
+iff $t
+dis $y
+eif $t
+dis $n
+eif $f
+dis $n
+els
+dis $n
+end
+# if true, eif false, eif true, els 101
+iff $t
+dis $y
+eif $f
+dis $n
+eif $t
+dis $n
+els
+dis $n
+end
+# if true, eif false, eif true, els 100
+iff $t
+dis $y
+eif $f
+dis $n
+eif $f
+dis $n
+els
+dis $n
+end
+# if false, eif true, eif true, els 011
+iff $f
+dis $n
+eif $t
+dis $y
+eif $t
+dis $n
+els
+dis $n
+end
+# if false, eif true, eif false, els 010
+iff $f
+dis $n
+eif $t
+dis $y
+eif $f
+dis $n
+els
+dis $n
+end
+# if false, eif false, eif true, els 001
+iff $f
+dis $n
+eif $f
+dis $n
+eif $t
+dis $y
+els
+dis $n
+end
+# if false, eif false, eif false, els 000
+iff $f
+dis $n
+eif $f
+dis $n
+eif $f
+dis $n
+els
+dis $y
+end
+dis 10
+end

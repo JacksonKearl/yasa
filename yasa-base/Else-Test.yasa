@@ -1,0 +1,17 @@
+# Init vars
+cpy 80 $y
+cpy 78 $n
+cpy 0 $f
+cpy 1 $t
+# if false, eif false, eif false, els 000
+iff $f
+dis $n
+eif $f
+dis $n
+eif $f
+dis $n
+els
+dis $y
+end
+dis 10
+end

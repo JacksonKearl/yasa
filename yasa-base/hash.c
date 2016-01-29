@@ -18,11 +18,11 @@ int hash(char *str) {
   return hash;
 }
 
-//
-// Uncomment to generate hashes for new operations
+
+// //Uncomment to generate hashes for new operations
 //
 // #include <stdio.h>
 // int main(int argc, char const *argv[]) {
-//   printf("%d", hash("cpr"));
+//   printf("%d", hash("mod"));
 //   return 0;
 // }

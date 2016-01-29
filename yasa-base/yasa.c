@@ -18,10 +18,21 @@
 int script_vars[27] = {0};
 int* script_arr;
 int stack_pos = 0;
+
+// Local copy of the script, along with where we are in it
 char** script;
 int current_line = 0;
+
+// Jump value 0 means execute normally
+// Jump value -1 means jump, but continue to check eif's
+// Jump value -2 means go straight to end
 int jump = 0;
+
+// How deep into iff's we are. Used in dealing with end's
 int nest_count = 0;
+
+// If we're reading from file or stdin. 0 = file, 1 = console,
+//      2 = -r enabled  (no autonewline, for redirection/piping)
 int REPL = 0;
 
 
@@ -34,16 +45,19 @@ void interpret(char* line) {
 
   int cmd_hash = hash(cmd);
 
+
+  // Jump value 0 means execute normally
+  // Jump value -1 means jump, but continue to check eif's
+  // Jump value -2 means go straight to end
+  if (jump == -2 && cmd_hash != END) {
+    return;
+  }
+
   if (jump && cmd_hash != LBL &&
               cmd_hash != EIF &&
               cmd_hash != ELS &&
               cmd_hash != END) {
     return;
-  }
-
-  // functions that accept non-$var input
-  switch (cmd_hash) {
-
   }
 
   // the max three arguments passed to each command
@@ -64,9 +78,6 @@ void interpret(char* line) {
     }
   }
 
-  // the local memory locations where argument variables are stored
-  for (int i = 0; i < argc ; i ++) {
-  }
 
   switch (hash(cmd)) {
     case CPY:
@@ -74,20 +85,14 @@ void interpret(char* line) {
       break;
     case SHO:
       printf("%d", *vars[0]);
-      if (REPL) {
-        #ifdef REPL_NO_NEWL
-        #else
+      if (REPL == 1) {
         puts("");
-        #endif
       }
       break;
     case DIS:
       printf("%c", (char)*vars[0]);
-      if (REPL) {
-        #ifdef REPL_NO_NEWL
-        #else
+      if (REPL == 1) {
         puts("");
-        #endif
       }
       break;
     case INC:
@@ -148,6 +153,14 @@ void interpret(char* line) {
       }
       *vars[1] = rand() % *vars[0];
       break;
+    case MOD:
+      if ( *vars[1] < 2 )
+      {
+        fputs("Attempted to modulo less than 2", stderr);
+        break;
+      }
+      *vars[2] = *vars[0] % *vars[1];
+      break;
     case EQL:
       *vars[2] = (*vars[0] == *vars[1]) ? 1 : 0;
       break;
@@ -155,17 +168,21 @@ void interpret(char* line) {
       *vars[2] = *vars[0] > *vars[1] ? 1 : 0;
       break;
     case IFF:
-      if (*vars[0]) { break; };
-      jump = -1;
+      // Jump value 0 means execute normally
+      // Jump value -1 means jump, but continue to check eif's
+      // Jump value -2 means go straight to end
       nest_count++;
+      if (*vars[0]) { jump = 0; break; }
+      else { jump = -1; }
       break;
     case EIF:
-      if (!jump) { jump = -1; break;}
-      if (*vars[0]) { break; };
-      jump = -1;
+      if (jump == 0 ) {jump = -2; break;}
+      if (*vars[0]) { jump = 0; break; }
+      else { jump = -1; }
       break;
     case ELS:
-      if (jump == -1) { jump = 0; break; }
+      if (jump == -1) { jump = 0; }
+      else { jump = -2; }
       break;
     case END:
       jump = 0;
@@ -194,16 +211,17 @@ int main(int argc, char const *argv[]) {
   script_arr = malloc(sizeof(int) * ARR_LENGTH);
   srand(time(NULL));
 
-  if (argc == 1) {
+  if (argc == 1 || (argc == 2 && argv[1][1] == 'r')) {
     // REPL mode
     REPL = 1;
+    if (argc == 2 && argv[1][1] == 'r') REPL = 2;
     fp = stdin;
     num_lines = REPL_LENGTH;
   } else {
     // normal mode
     fp = fopen(argv[1], "r");
     if (!fp) {
-      printf("File %d could not be opened :/\n", argc);
+      printf("File %s could not be opened :/\n", argv[1]);
       return 1;
     }
 
@@ -217,7 +235,7 @@ int main(int argc, char const *argv[]) {
     // If we're out of preallocated memory for lines, double our memory
     //    Only applies in REPL mode, as memory is allocated beforehad in
     //    file mode
-    if (argc == 1 && current_line == num_lines) {
+    if (REPL && current_line == num_lines) {
       num_lines *= 2;
       script = (char**)realloc(script, num_lines);
       if (script == NULL) {
