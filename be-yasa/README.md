@@ -1,4 +1,4 @@
 #be-yasa
-##The befunge to yasa translator
+###The befunge to yasa Translator
 
 Coming soon! (maybe)

@@ -1,4 +1,4 @@
 #fuck-yasa
-##The brainfuck to yasa translator
+###The brainfuck to yasa Translator
 
 Coming soon! (hopefully)
