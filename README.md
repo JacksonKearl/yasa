@@ -33,7 +33,7 @@ All variables and literals are integers, which may be converted to/from ASCII ch
 In addition to the 27 `$var`s, the runtime also has access to an array of integers, initailized to `0`, that may be accesed at random.
 
 ####Commands:
-All commands are broken down into these 4 categories. The included yasa.cson file provides syntax hilighting as documented.
+All commands are broken down into these 4 categories. The included yasa.cson file provides syntax highlighting as documented.
 
 #####State Change (purple):
 |Command|Name|Arguments|Description|
