@@ -41,14 +41,14 @@ int main(int argc, char const *argv[]) {
         printf("\ncin $\nput $ $p");
         break;
       case '[':
-        printf("\nget $ $p\neql $ 0 $\niff $\nmov %d\nend\nlbl -%d", next_lbl_mark, next_lbl_mark);
+        printf("\nlbl -%d\nget $ $p\neql $ 0 $\nmov %d $", next_lbl_mark, next_lbl_mark);
         lbl_marks[close_mark_pos] = next_lbl_mark;
         next_lbl_mark++;
         close_mark_pos++;
         break;
       case ']':
         close_mark_pos--;
-        printf("\nget $ $p\niff $\nmov -%d\nend\nlbl %d", lbl_marks[close_mark_pos], lbl_marks[close_mark_pos]);
+        printf("\nmov -%d\nlbl %d", lbl_marks[close_mark_pos], lbl_marks[close_mark_pos]);
         break;
     }
   } while (c != EOF);

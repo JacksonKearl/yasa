@@ -39,12 +39,10 @@ inc $
 put $ $p
 #
 #
+lbl -10
 get $ $p
 eql $ 0 $
-iff $
-mov 10
-end
-lbl -10
+mov 10 $
 #
 #
 #
@@ -263,10 +261,7 @@ dec $
 put $ $p
 #
 #
-get $ $p
-iff $
 mov -10
-end
 lbl 10
 #
 #

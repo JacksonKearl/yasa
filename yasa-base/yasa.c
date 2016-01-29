@@ -50,8 +50,11 @@ void interpret(char* line) {
 
   int cmd_hash = hash(cmd);
 
+  if (cmd_hash == IFF) { nest_count++;}
+  if (cmd_hash == END) { nest_count--;}
+
   if (jump_seeking && cmd_hash != LBL
-                   && cmd_hash != END) { return; }
+                   ) { return; }
 
   // Jump value 0 means execute normally
   // Jump value -1 means jump, but continue to check eif's
@@ -60,8 +63,7 @@ void interpret(char* line) {
     return;
   }
 
-  if (cmd_hash == IFF) { nest_count++;}
-  if (cmd_hash == END) { nest_count--;}
+
 
   if (jump && cmd_hash != IFF &&
               cmd_hash != EIF &&
@@ -213,8 +215,10 @@ void interpret(char* line) {
       }
       break;
     case MOV:;
-      jump_seeking = *vars[0];
-      current_line = -1;
+      if (argc == 1 || *vars[1] != 0) {
+        jump_seeking = *vars[0];
+        current_line = -1;
+      }
       break;
   }
 }

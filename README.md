@@ -65,7 +65,7 @@ As a general rule, the modified variable in a given command will be the last in 
 |Command|Name|Arguments|Description|
 |-------|----|---------|-----------|
 |Label|`lbl`|$a| creates a mark for future/past mov's. *must be positive*|
-|Move|`mov`|$a| go to label $a, searching from beginning onward|
+|Move|`mov`|$a [$b]| go to label $a, searching from beginning onward, noop if $b is 0|
 |If|`iff`|$a|continue if $a is not 0, else jump to next elif or end|
 |Else If|`eif`|$a|continue if $a is not 0, else jump to next elif or end|
 |Else|`els`|none|continue so long as previous `iff`'s evaluated false|
