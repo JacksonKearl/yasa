@@ -20,7 +20,7 @@ int main(int argc, char const *argv[]) {
 
   do {
     c = fgetc(fp);
-    printf("\n#");
+
     switch (c) {
       case '>':
         printf("\ninc $p");
@@ -50,6 +50,21 @@ int main(int argc, char const *argv[]) {
         close_mark_pos--;
         printf("\nmov -%d\nlbl %d", lbl_marks[close_mark_pos], lbl_marks[close_mark_pos]);
         break;
+      case '\n':
+      case '\t':
+      case ' ':
+        break;
+      default:
+        printf("\n#");
+        while (c != EOF  && c != '\n' && \
+               c != ','  && c != '.'  && \
+               c != '-'  && c != '+'  && \
+               c != '<'  && c != '>'  && \
+               c != '['  && c != ']') {
+            printf("%c", c);
+            c = fgetc(fp);
+        }
+        ungetc(c, fp);
     }
   } while (c != EOF);
   puts("\nend");
